@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
-
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -10,100 +9,192 @@ import { BorderBeam } from "./magicui/border-beam";
 import SidebarCard from "./ContactUs/SidebarCard";
 
 export default function SignupFormDemo() {
-  const formRef = useRef<HTMLFormElement>(null);
+  // Form state includes user_first_name, user_last_name, email, user_subject, and message
+  const [formData, setFormData] = useState({
+    user_first_name: "",
+    user_last_name: "",
+    user_email: "",
+    user_subject: "",
+    message: "",
+  });
 
-  // Loading, success, error state
+  // Loading state for form submission
   const [loading, setLoading] = useState(false);
+  // Success message after email sent
   const [success, setSuccess] = useState("");
+  // Error message if email sending fails
   const [error, setError] = useState("");
 
+  // Handle changes in input and textarea fields
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
   // Handle form submission
-  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!formRef.current) return;
-
     setLoading(true);
     setSuccess("");
     setError("");
 
-    try {
-      await emailjs.sendForm(
-        "service_442k6r3",     // Your Service ID
-        "template_11ciokw",    // Your Template ID
-        formRef.current,
-        "81H-paFwAEGNQSEKu"    // Your Public Key
+    // Your EmailJS credentials here
+    const SERVICE_ID = "service_1rh8fww";
+    const TEMPLATE_ID = "template_hytqjnp";
+    const USER_ID = "ZWdej22SLqjBTlESm";
+
+    // Template parameters must match your EmailJS template variables
+    const templateParams = {
+      user_first_name: formData.user_first_name,
+      user_last_name: formData.user_last_name,
+      user_email: formData.user_email,
+      user_subject: formData.user_subject,
+      message: formData.message,
+    };
+
+    // Send email with EmailJS
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
+      .then(
+        () => {
+          setLoading(false);
+          setSuccess("Your message has been sent successfully. Thank you!");
+          setFormData({ user_first_name: "", user_last_name: "", user_email: "", user_subject: "", message: "" }); // Reset form
+        },
+        (error) => {
+          setLoading(false);
+          setError("Sorry, there was an error sending your message. Please try again.");
+          console.error(error.text);
+        }
       );
-      setSuccess("Your message has been sent successfully!");
-      formRef.current.reset(); // reset form
-    } catch (err) {
-      console.error(err);
-      setError("Failed to send your message. Please try again.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 py-8">
       {/* Form container */}
       <div className="relative shadow-input border overflow-hidden mx-auto w-full max-w-md rounded-xl bg-white p-6 md:p-8 dark:bg-black">
+        {/* Decorative border animation */}
         <BorderBeam duration={8} size={80} />
-        <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">Connect Us</h2>
+
+        <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
+          Connect Us
+        </h2>
         <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-          Let's stay in touch — drop your details or message me directly through this form.
+          Let`&apos`s stay in touch — drop your details or message me directly through this form.
         </p>
 
-        <form ref={formRef} className="my-8" onSubmit={sendEmail}>
+        {/* Contact form */}
+        <form className="my-8" onSubmit={handleSubmit}>
+          {/* First and last name inputs */}
           <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
             <LabelInputContainer>
-              <Label htmlFor="firstname">First name</Label>
-              <Input id="firstname" name="firstname" placeholder="Your Name" type="text" required />
+              <Label htmlFor="user_first_name" className="text-left">
+                First name
+              </Label>
+              <Input
+                id="user_first_name"
+                placeholder="Your Name"
+                type="text"
+                value={formData.user_first_name}
+                onChange={handleChange}
+                required
+              />
             </LabelInputContainer>
             <LabelInputContainer>
-              <Label htmlFor="lastname">Last name</Label>
-              <Input id="lastname" name="lastname" placeholder="Last Name" type="text" required />
+              <Label htmlFor="user_last_name" className="text-left">
+                Last name
+              </Label>
+              <Input
+                id="user_last_name"
+                placeholder="Last name"
+                type="text"
+                value={formData.user_last_name}
+                onChange={handleChange}
+                required
+              />
             </LabelInputContainer>
           </div>
 
+          {/* Email input */}
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="email">Email Address</Label>
-            <Input id="email" name="email" placeholder="example@domain.com" type="email" required />
+            <Label htmlFor="user_email" className="text-left">
+              Email Address
+            </Label>
+            <Input
+              id="user_email"
+              placeholder="example@domain.com"
+              type="email"
+              value={formData.user_email}
+              onChange={handleChange}
+              required
+            />
           </LabelInputContainer>
 
+          {/* user_subject input */}
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="subject">Subject</Label>
-            <Input id="subject" name="subject" placeholder="Subject of your message" type="text" required />
+            <Label htmlFor="user_subject" className="text-left">
+              user_subject
+            </Label>
+            <Input
+              id="user_subject"
+              placeholder="user_subject of your message"
+              type="text"
+              value={formData.user_subject}
+              onChange={handleChange}
+              required
+            />
           </LabelInputContainer>
 
+          {/* Message textarea */}
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="message">Your Message</Label>
+            <Label htmlFor="message" className="text-left">
+              Your Message
+            </Label>
             <textarea
               id="message"
               name="message"
               placeholder="Write your message here..."
               rows={4}
               className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm dark:border-gray-700 dark:bg-zinc-900 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+              value={formData.message}
+              onChange={handleChange}
               required
             />
           </LabelInputContainer>
 
+          {/* Submit button */}
           <button
-            type="submit"
             disabled={loading}
             className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-md dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
+            type="submit"
           >
             {loading ? "Sending..." : "Send Message →"}
             <BottomGradient />
           </button>
 
-          {success && <p className="mt-4 text-green-600 dark:text-green-400 font-medium">{success}</p>}
-          {error && <p className="mt-4 text-red-600 dark:text-red-400 font-medium">{error}</p>}
+          {/* Display success or error messages */}
+          {success && (
+            <p className="mt-4 text-green-600 dark:text-green-400 font-medium">
+              {success}
+            </p>
+          )}
+          {error && (
+            <p className="mt-4 text-red-600 dark:text-red-400 font-medium">
+              {error}
+            </p>
+          )}
 
+          {/* Divider */}
           <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
         </form>
       </div>
 
+      {/* Sidebar component */}
       <SidebarCard />
     </div>
   );
@@ -117,6 +208,13 @@ const BottomGradient = () => (
   </>
 );
 
-const LabelInputContainer = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+// Wrapper container for label + input pairs with spacing
+const LabelInputContainer = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return <div className={cn("flex w-full flex-col space-y-2", className)}>{children}</div>;
 };

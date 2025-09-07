@@ -87,7 +87,7 @@ export default function SidebarCard() {
                 <div className="w-16 h-16 mx-auto flex items-center justify-center border-2 border-dashed shadow-xl rounded-full">
                   <IconMailSpark className="w-6 h-6" />
                 </div>
-                <div className="mt-4 text-xs text-gray-400">hello.uiverse@gmail.com</div>
+                <div className="mt-4 text-xs text-gray-400">hello.uiverse.bd@gmail.com</div>
               </div>
             </div>
           </CardContent>

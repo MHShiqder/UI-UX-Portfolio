@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ModeToggle from "./ModeToggle";
+// import ModeToggle from "./ModeToggle";
 import { FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
 import logoDark from "../../public/logo2.png";
@@ -119,7 +119,7 @@ const Navbar = () => {
         </Link>
 
         {/* Theme Toggle */}
-        <ModeToggle />
+        {/* <ModeToggle /> */}
       </div>
     </nav>
   );

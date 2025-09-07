@@ -7,17 +7,18 @@ import React, {
 } from "react";
 import { ShinyButton } from "../magicui/shiny-button";
 import SectionTitle from "../shared/CustomStyle/SectionTitle/SectionTitle";
+import Image from "next/image";
 
 const cn = (...inputs: (string | boolean | undefined | null)[]) => {
   return inputs.filter(Boolean).join(" ");
 };
 
-const ArrowRightIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+const ArrowRightIcon: FC<SVGProps<SVGSVGElement>> = (_props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
     fill="currentColor"
-    {...props}
+    {..._props}
   >
     <path
       fillRule="evenodd"
@@ -32,14 +33,14 @@ interface BentoGridProps extends ComponentPropsWithoutRef<"div"> {
   className?: string;
 }
 
-const BentoGrid: FC<BentoGridProps> = ({ children, className, ...props }) => {
+const BentoGrid: FC<BentoGridProps> = ({ children, className, ..._props }) => {
   return (
     <div
       className={cn(
         "grid w-full auto-rows-[22rem] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
         className
       )}
-      {...props}
+      {..._props}
     >
       {children}
     </div>
@@ -64,7 +65,7 @@ const BentoCard: FC<BentoCardProps> = ({
   description,
   href,
   cta,
-  ...props
+  ..._props
 }) => (
   <div
     key={name}
@@ -76,7 +77,7 @@ const BentoCard: FC<BentoCardProps> = ({
       "transform-gpu dark:bg-black dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       className
     )}
-    {...props}
+    {..._props}
   >
     <div>{background}</div>
     <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
@@ -111,79 +112,27 @@ const BentoCard: FC<BentoCardProps> = ({
 
 // --- Example Usage ---
 
-const FileTextIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-    <polyline points="14 2 14 8 20 8" />
-    <line x1="16" y1="13" x2="8" y2="13" />
-    <line x1="16" y1="17" x2="8" y2="17" />
-    <line x1="10" y1="9" x2="8" y2="9" />
-  </svg>
+const FileTextIcon: FC<SVGProps<SVGSVGElement>> = () => (
+  <Image  width={48} height={48} src="https://cdn-icons-png.flaticon.com/128/16751/16751824.png" alt="" />
+  
 );
-const IntegrationIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-    <path d="M2 17l10 5 10-5" />
-    <path d="M2 12l10 5 10-5" />
-  </svg>
+const IntegrationIcon: FC<SVGProps<SVGSVGElement>> = () => (
+  
+  <Image  width={48} height={48} src="https://cdn-icons-png.flaticon.com/128/8898/8898827.png" alt="" />
+  
 );
-const ShareIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-    <polyline points="16 6 12 2 8 6" />
-    <line x1="12" y1="2" x2="12" y2="15" />
-  </svg>
+const PersonalizeIcon: FC<SVGProps<SVGSVGElement>> = () => (
+<Image  width={48} height={48} src="https://cdn-icons-png.flaticon.com/128/10810/10810064.png" alt="" />
+  
+  
 );
-const GlobeIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-    <path d="M2 12h20" />
-  </svg>
+const ShareIcon: FC<SVGProps<SVGSVGElement>> = () => (
+<Image  width={48} height={48} src="https://cdn-icons-png.flaticon.com/128/3488/3488370.png" alt="" />
+  
+);
+const GlobeIcon: FC<SVGProps<SVGSVGElement>> = () => (
+<Image  width={48} height={48} src="https://cdn-icons-png.flaticon.com/128/4010/4010941.png" alt="" />
+
 );
 
 type Feature = {
@@ -199,8 +148,8 @@ type Feature = {
 const features: Feature[] = [
   {
     Icon: FileTextIcon,
-    name: "Automated Reporting",
-    description: "Generate and export detailed reports with a single click.",
+    name: "Unlimited Revisions",
+    description: "We're committed to your satisfaction with unlimited revisions at every step. Our mission is to make your vision come to life exactly as you imagine",
     href: "#",
     cta: "Learn More",
     className: "lg:col-span-1",
@@ -210,19 +159,30 @@ const features: Feature[] = [
   },
   {
     Icon: IntegrationIcon,
-    name: "Seamless Integration",
-    description: "Connect with your favorite tools and services effortlessly.",
+    name: "Lifetime Support",
+    description: "With our lifetime support, you're never alone. We'll be there for you at every stage with necessary guidance and assistance whenever you need it.",
     href: "#",
     cta: "View Integrations",
-    className: "lg:col-span-2",
+    className: "lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-purple-50 dark:bg-purple-950/20" />
+    ),
+  },
+  {
+    Icon: PersonalizeIcon,
+    name: "Personalised Plans",
+    description: "Get top-quality service without breaking the bank. Our rates are designed to fit your budget so that you can get the best value for your investment.",
+    href: "#",
+    cta: "View Integrations",
+    className: "lg:col-span-1",
     background: (
       <div className="absolute inset-0 bg-purple-50 dark:bg-purple-950/20" />
     ),
   },
   {
     Icon: ShareIcon,
-    name: "Real-Time Collaboration",
-    description: "Work together with your team in real-time on any project.",
+    name: "Custom Design Solutions",
+    description: "Our easy payment options are completely flexible. So, you can invest in your success while staying within your budget.",
     href: "#",
     cta: "Try It Now",
     className: "lg:col-span-2",
@@ -232,9 +192,9 @@ const features: Feature[] = [
   },
   {
     Icon: GlobeIcon,
-    name: "Global Reach",
+    name: "24/7 Customer Support",
     description:
-      "Deploy your applications anywhere in the world with our robust infrastructure.",
+      "Benefit from the expertise of our carefully chosen resources that are designed to make your journey smooth and effortless with outstanding results.",
     href: "#",
     cta: "Explore Regions",
     className: "lg:col-span-1",

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import ModeToggle from "./shared/ModeToggle";
+// import ModeToggle from "./shared/ModeToggle";
 import { motion } from "motion/react";
 import { FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
@@ -81,7 +81,8 @@ export function SheetDemo() {
           }}
           className="flex gap-4 px-4 mb-4"
         >
-          <ModeToggle />
+          {/* <ModeToggle /> */}
+          
           <Link
             href={socialLinks.instagram}
             target="_blank"

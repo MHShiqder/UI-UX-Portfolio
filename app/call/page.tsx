@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiSend, FiCalendar, FiDollarSign, FiUser, FiMail, FiPhone, FiBriefcase, FiCheckCircle } from "react-icons/fi";
 import emailjs from "emailjs-com";
 
 export default function ContactUsPage() {
+
+  
   const [formData, setFormData] = useState({
     fullName: "",
     company: "",
@@ -82,10 +84,18 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     }
   };
 
-  const item = {
-    hidden: { y: 20, opacity: 0 },
-    show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 300 } }
-  };
+  const item: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",  // correct type
+      stiffness: 300,  // spring stiffness
+      damping: 25      // add damping
+    }
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">

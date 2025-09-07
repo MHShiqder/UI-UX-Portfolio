@@ -4,6 +4,12 @@ import { Marquee } from "@/components/magicui/marquee";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+interface Review {
+  name: string;
+  username: string;
+  body: string;
+  img: string;
+}
 // List of common US first names
 const firstNames = [
   'Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Elijah', 'Charlotte', 'William',
@@ -130,7 +136,7 @@ const ReviewCard = ({
 };
 
 export function MarqueeDemo() {
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [typingIndex, setTypingIndex] = useState(0);
   const [isTypingActive, setIsTypingActive] = useState(true);
 
